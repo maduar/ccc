@@ -1,0 +1,21 @@
+<!-- partials/state1.html -->
+<div ng-controller="index"  ng-init="init()">
+	
+	<table class="table table-condensed">
+		<thead>
+			<td>序号</td>
+			<td>主贴</td>
+		</thead>
+		
+		<tbody>
+			<tr ng-repeat="item in indexBlog">
+				<td>{{$index+1}}</td>
+			    <td>
+					<div class="container-fluid"  title="{{  item.content }}">{{ item.title }}</div>
+			    </td>
+			</tr>	
+		</tbody>
+	</table>
+	<pagination num-pages="pages" curr-page="page" on-select-page="selectPage(page)"></pagination>
+
+</div>

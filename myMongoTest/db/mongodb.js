@@ -1,0 +1,18 @@
+var mongoose = require('mongoose');
+var db = mongoose.createConnection('mongodb://127.0.0.1:27017/blog');
+
+db.on('err', function(error) {
+	console.log(error);
+});
+
+var Schema = mongoose.Schema;
+var userlistScheMa = new Schema({
+	user             : {type : String},
+	password      : {type : String},
+	email            : {type : String},
+	phone           : {type : Number},
+	create_date   : {type : String}
+});
+
+module.exports.userlist = db.model('users', userlistScheMa);
+module.exports.db = db;
