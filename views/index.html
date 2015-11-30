@@ -1,10 +1,20 @@
-﻿<% include header.html %>
+﻿<style>
+	.divColColor {
+		background-color : green;
+		color : red
+	}
+</style>
+
+
+
+
+<% include header.html %>
 	<header >
-			<div class="container-fluid center "  >
+			<div class="container-fluid center "  ng-controller="headController" ng-init="init()">
 				<ul class="nav nav-tabs">
 				   <li class="active"><a ui-sref="index">Home</a></li>
-				   <li  ng-if="!(window.member)"><a ui-sref="login">登陆</a></li>
-				   <li  ng-if="!!(window.member)"><a ui-sref="login">window.member.user</a></li>
+				   <li  ng-show="!(LOGIN)"><a ui-sref="login">登陆</a></li>
+				   <li  ng-if="LOGIN"><a ui-sref="login">wahaha</a></li>
 				   <li><a ui-sref="regist">注册</a></li>	
 				</ul>
 			</div>
