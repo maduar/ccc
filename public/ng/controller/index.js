@@ -1,7 +1,7 @@
 angular.module('myApp')
 	.controller('index', [ '$scope', '$http', function($scope, $http) {
 		$scope.init = function() {
-			$scope.login ? window.member=$scope.login : null;
+			//$scope.login ? window.member=$scope.login : null;
 			//console.log(window.member);
 			if( window.member ) {
 				alert('欢迎 ' + window.member.user + '回来');

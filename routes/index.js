@@ -1,12 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var Modules = require('./../db/mongodb.js');
+var session = require('express-session');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // add session is failed
-  
-  res.render('index', {title : "blog"});
+  //req.session.member = 'aaa';
+  //console.log('req.session : ' +res.cookie) ;
+  //console.log('req.session : ' +JSON.stringify(req.session)) ;
+  var _toRenderIndex = {};
+  var _member = (req.session.member) ? req.session.member : null;
+  if(_member)  delete _member.password;
+  _toRenderIndex.account = _member;
+  _toRenderIndex.title = '博客首页';
+  res.render('index', _toRenderIndex);
 });
 
 
@@ -37,6 +45,12 @@ router.get('/getUserList', function(req, res, next) {
 
 //login
 router.post('/login', function(req, res, next) {
+	    // 检查 session 中的 isVisit 字段是否存在
+    // 如果存在则增加一次，否则为 session 设置 isVisit 字段，并初始化为 1。
+
+	
+	
+	
 	//console.log('cookie : ' + JSON.stringify(req.body) );
 	var data = { user : req.body.user, password : req.body.password} ;
 	
@@ -45,6 +59,7 @@ router.post('/login', function(req, res, next) {
 		if(err)  { console.err('err ' + err) };
 		if( result ) {
 			var _result = { code:0, state : "sucess", msg : "sucess", content : result };
+			req.session.member = result;
 			res.send(_result);			
 		} else {
 			var _result = { code:2000, state : "fail", msg : "fail", content : "用户名或者密码错误" };

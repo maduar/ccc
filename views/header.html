@@ -5,5 +5,11 @@
 	<meta charset="utf-8"/> 
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+	<% if (account) {%>
+		<script>
+			window.member = <%- JSON.stringify(account) %>
+			console.log(window.member);
+		</script>	
+	<% } %>
   </head>
   <body  screen_capture_injected="true">

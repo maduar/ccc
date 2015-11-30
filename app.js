@@ -22,17 +22,34 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
-var sess = {
-  secret: 'keyboard cat',
-  cookie: {}
-}
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('myApp'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//app.use(express.cookieParser('myApp'));
+
+// set session store
+if(config.sessionMode=='mongodb') {
+	app.use(session({
+		key: 'wwx',
+		secret: 'cookie-secret',
+		store: new MongoStore(config.sessiondb),
+		resave: true,
+		saveUninitialized: true
+	}));
+} else {
+	app.use(session({
+		secret: 'myApp',
+		resave: true,
+		saveUninitialized: true
+	}));
+}
+
 
 //app.set('port', app.config.server.port || 3000);
 
